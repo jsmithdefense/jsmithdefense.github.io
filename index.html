@@ -159,6 +159,11 @@
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
   .nav-mid a.active { color: var(--text-1); }
 
+  /* Back to top */
+  #back-top { position: fixed; bottom: 32px; right: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-5); background: none; border: 1px solid var(--rule); padding: 6px 12px; border-radius: 4px; cursor: none; opacity: 0; pointer-events: none; transition: opacity .3s ease, color .15s, border-color .15s; z-index: 100; }
+  #back-top.visible { opacity: 1; pointer-events: all; }
+  #back-top:hover { color: var(--text-1); border-color: var(--accent); }
+
   /* Custom cursor */
   @media (pointer: fine) {
     * { cursor: none !important; }
@@ -183,6 +188,7 @@
 </head>
 <body>
 <div id="cursor"></div>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ top</button>
 
 <nav>
   <span class="nav-name">jsmithdefense</span>
@@ -199,11 +205,11 @@
   <div class="kicker">/ Portfolio</div>
   <h1>
     <span id="typed-name"></span><span class="type-cursor">|</span><br />
-    <span class="soft">SecOps · Cloud Security · AI</span>
+    <span class="soft">Cloud Security · Detection Engineering</span>
   </h1>
   <blockquote class="hero-quote">"Defense isn't just blocking activity — it's understanding why it was possible."</blockquote>
   <p>Cybersecurity practitioner. Self-taught. Building tools because the problems are interesting.</p>
-  <div class="hero-line"><span class="k">focus</span><span class="v">incident response · identity risk · detection engineering · vulnerability mgmt</span></div>
+  <div class="hero-line"><span class="k">focus</span><span class="v">incident response · IAM · AI integration</span></div>
   <div class="hero-line"><span class="k">stack</span><span class="v">Azure · Splunk · Tenable · Python · PowerShell · KQL</span></div>
   <div class="hero-line"><span class="k">looking for</span><span class="v">junior cloud security or SOC roles · fully remote</span></div>
 </header>
@@ -220,7 +226,7 @@
     <a class="proj-item" href="https://github.com/jsmithdefense/Azure-RBAC-Risk-Analyzer" target="_blank" rel="noopener">
       <div class="proj-inner">
         <div class="proj-grid">
-          <span class="proj-idx">>./</span>
+          <span class="proj-idx">./</span>
           <div>
             <div class="proj-name">Azure RBAC Risk Intelligence</div>
             <div class="proj-desc">A tool that enumerates all role assignments across a tenant, ranks subscriptions and principals by cumulative risk score, and generates AI remediation playbooks which can be executed manually or automatically via Azure SDK.</div>
@@ -509,23 +515,24 @@
   </div>
   <div class="skills-two">
     <div>
-      <div class="col-head">Stack</div>
       <div class="sk-list">
         <span class="sk-item">Microsoft Azure</span>
         <span class="sk-item">Entra ID</span>
-        <span class="sk-item">Azure RBAC</span>
         <span class="sk-item">Microsoft Sentinel</span>
         <span class="sk-item">Microsoft Defender XDR</span>
         <span class="sk-item">KQL</span>
         <span class="sk-item">Splunk</span>
-        <span class="sk-item">Splunk SPL</span>
         <span class="sk-item">Tenable</span>
+        <span class="sk-item">Wazuh</span>
         <span class="sk-item">Python</span>
         <span class="sk-item">PowerShell</span>
         <span class="sk-item">Azure SDK</span>
         <span class="sk-item">MS Graph API</span>
         <span class="sk-item">MITRE ATT&amp;CK</span>
-        <span class="sk-item">Git</span>
+        <span class="sk-item">Vulnerability Management</span>
+        <span class="sk-item">STIG Remediation</span>
+        <span class="sk-item">Threat Hunting</span>
+        <span class="sk-item">CTI</span>
       </div>
     </div>
     <div>
@@ -580,6 +587,12 @@
       if (hint) hint.textContent = open ? 'expand' : 'collapse';
     });
   });
+  // Back to top
+  const backTop = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('visible', window.scrollY > 200);
+  });
+
   // Typewriter
   (function() {
     const el = document.getElementById('typed-name');
