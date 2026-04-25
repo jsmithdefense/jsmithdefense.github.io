@@ -159,6 +159,17 @@
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
   .nav-mid a.active { color: var(--text-1); }
 
+  /* Floating contact */
+  #contact-float { position: fixed; bottom: 80px; right: 32px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; opacity: 0; pointer-events: none; transition: opacity .3s ease; z-index: 100; }
+  #contact-float.visible { opacity: 1; pointer-events: all; }
+  #cf-toggle { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-5); background: none; border: 1px solid var(--rule); padding: 6px 12px; border-radius: 4px; cursor: none; transition: color .15s, border-color .15s; }
+  #cf-toggle:hover { color: var(--text-1); border-color: var(--accent); }
+  #cf-links { display: flex; flex-direction: column; gap: 4px; overflow: hidden; max-height: 0; transition: max-height .35s cubic-bezier(.4,0,.2,1), opacity .3s ease; opacity: 0; }
+  #cf-links.open { max-height: 120px; opacity: 1; }
+  .cf-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-5); background: none; border: 1px solid var(--rule); padding: 5px 10px; border-radius: 4px; display: flex; align-items: center; gap: 6px; transition: color .15s, border-color .15s; text-decoration: none; cursor: none; white-space: nowrap; }
+  .cf-link:hover { color: var(--text-1); border-color: var(--accent); }
+  .cf-link .cf-arr { color: var(--accent); opacity: .7; font-size: 10px; }
+
   /* Back to top */
   #back-top { position: fixed; bottom: 32px; right: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-5); background: none; border: 1px solid var(--rule); padding: 6px 12px; border-radius: 4px; cursor: none; opacity: 0; pointer-events: none; transition: opacity .3s ease, color .15s, border-color .15s; z-index: 100; }
   #back-top.visible { opacity: 1; pointer-events: all; }
@@ -188,6 +199,14 @@
 </head>
 <body>
 <div id="cursor"></div>
+<div id="contact-float">
+  <div id="cf-links">
+    <button class="cf-link" id="cf-email"><span id="cf-email-label">jsmithsec.connect@gmail.com</span> <span class="cf-arr">↗</span></button>
+    <a class="cf-link" href="https://www.linkedin.com/in/jsmithdefense/" target="_blank" rel="noopener">linkedin.com/in/jsmithdefense <span class="cf-arr">↗</span></a>
+    <a class="cf-link" href="https://github.com/jsmithdefense" target="_blank" rel="noopener">github.com/jsmithdefense <span class="cf-arr">↗</span></a>
+  </div>
+  <button id="cf-toggle">contact ↗</button>
+</div>
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ top</button>
 
 <nav>
@@ -589,9 +608,32 @@
   });
   // Back to top
   const backTop = document.getElementById('back-top');
+  const contactFloat = document.getElementById('contact-float');
   window.addEventListener('scroll', () => {
-    backTop.classList.toggle('visible', window.scrollY > 200);
+    const show = window.scrollY > 200;
+    backTop.classList.toggle('visible', show);
+    contactFloat.classList.toggle('visible', show);
   });
+
+  // Floating contact toggle
+  const cfToggle = document.getElementById('cf-toggle');
+  const cfLinks = document.getElementById('cf-links');
+  cfToggle.addEventListener('click', () => {
+    const open = cfLinks.classList.toggle('open');
+    cfToggle.textContent = open ? 'close ✕' : 'contact ↗';
+  });
+
+  // Floating email copy
+  const cfEmail = document.getElementById('cf-email');
+  const cfEmailLabel = document.getElementById('cf-email-label');
+  if (cfEmail && cfEmailLabel) {
+    cfEmail.addEventListener('click', () => {
+      navigator.clipboard.writeText('jsmithsec.connect@gmail.com').then(() => {
+        cfEmailLabel.textContent = 'copied!';
+        setTimeout(() => { cfEmailLabel.textContent = 'jsmithsec.connect@gmail.com'; }, 2000);
+      });
+    });
+  }
 
   // Typewriter
   (function() {
