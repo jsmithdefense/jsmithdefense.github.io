@@ -589,7 +589,7 @@
 <script>
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      e.target.classList.toggle('in', e.isIntersecting);
     });
   }, { threshold: 0.05 });
   document.querySelectorAll('[data-reveal]').forEach((el, i) => {
