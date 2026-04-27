@@ -169,6 +169,32 @@
   #back-top { position: fixed; bottom: 32px; right: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-5); background: none; border: 1px solid var(--rule); padding: 6px 12px; border-radius: 4px; cursor: none; opacity: 0; pointer-events: none; transition: opacity .3s ease, color .15s, border-color .15s; z-index: 100; }
   #back-top.visible { opacity: 1; pointer-events: all; }
   #back-top:hover { color: var(--text-1); border-color: var(--accent); }
+  /* ── Filter dismiss pill ───────────────────────────── */
+  #filter-dismiss {
+    position: fixed; top: 68px; left: 50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .04em;
+    background: var(--bg); color: var(--accent); border: 1px solid var(--accent);
+    padding: 6px 20px; border-radius: 9999px;
+    cursor: none; white-space: nowrap;
+    opacity: 0; pointer-events: none;
+    transition: opacity .25s ease, background .15s ease, color .15s ease;
+    z-index: 20;
+  }
+  #filter-dismiss.visible { opacity: 1; pointer-events: all; }
+  #filter-dismiss:hover { background: var(--accent); color: var(--text-1); }
+  /* ── Blur inactive sections when filter active ─────── */
+  body.filter-active .hero,
+  body.filter-active #skills,
+  body.filter-active #contact,
+  body.filter-active footer {
+    filter: blur(4px);
+    opacity: 0.22;
+    pointer-events: none;
+    transition: filter .35s ease, opacity .35s ease;
+  }
+  .hero, #skills, #contact, footer {
+    transition: filter .35s ease, opacity .35s ease;
+  }
   /* Custom cursor */
   @media (pointer: fine) {
     * { cursor: none !important; }
@@ -203,6 +229,7 @@
   </div>
   <button id="cf-toggle">contact ↗</button>
 </div>
+<button id="filter-dismiss" onclick="dismissFilter()"><span id="dismiss-icon">×</span> Clear "<span id="dismiss-label"></span>"</button>
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ top</button>
 <nav>
   <span class="nav-name">jsmithdefense</span>
@@ -580,82 +607,108 @@
     });
   });
 
-  // Skill filter
-  let activeSkill = null;
-  document.querySelectorAll('.sk-item').forEach((chip) => {
-    chip.addEventListener('click', () => {
-      const skill = chip.dataset.skill;
-      if (activeSkill === skill) {
-        activeSkill = null;
-        chip.classList.remove('active');
-        clearFilter();
+  // ── Skill filter IIFE ───────────────────────────────
+  (function () {
+    const dismissBtn   = document.getElementById('filter-dismiss');
+    const dismissLabel = document.getElementById('dismiss-label');
+    let activeSkill    = null;
+
+    function applyFilter(skill, chipEl) {
+      // Mark chips
+      document.querySelectorAll('.sk-item').forEach(c => c.classList.remove('active'));
+      chipEl.classList.add('active');
+      activeSkill = skill;
+
+      // Projects
+      document.querySelectorAll('#projects .proj-item').forEach((item) => {
+        const skills = (item.dataset.skills || '').split(' ');
+        item.classList.toggle('filtered-out', !skills.includes(skill));
+      });
+
+      // Lab groups
+      document.querySelectorAll('#labs .group-head').forEach((btn) => {
+        const groupSkills = (btn.dataset.groupSkills || '').split(' ');
+        const matches = groupSkills.includes(skill);
+        const bodyId = btn.getAttribute('aria-controls');
+        const body = document.getElementById(bodyId);
+        btn.style.opacity = matches ? '1' : '0.15';
+        btn.style.pointerEvents = matches ? '' : 'none';
+        if (body) body.style.opacity = matches ? '1' : '0.15';
+        btn.setAttribute('aria-expanded', matches ? 'true' : 'false');
+        const hint = btn.querySelector('.group-hint');
+        if (hint) hint.textContent = matches ? 'collapse' : 'expand';
+        if (matches && body) {
+          body.querySelectorAll('.proj-item, .compact-row').forEach((item) => {
+            const itemSkills = (item.dataset.skills || '').split(' ');
+            item.classList.toggle('filtered-out', !itemSkills.includes(skill));
+          });
+        }
+      });
+
+      // Blur inactive sections
+      document.body.classList.add('filter-active');
+
+      // Show dismiss pill
+      if (dismissBtn && dismissLabel) {
+        dismissLabel.textContent = chipEl.textContent.trim();
+        dismissBtn.classList.add('visible');
+      }
+
+      // Scroll to first match
+      const firstProject = document.querySelector('#projects .proj-item:not(.filtered-out)');
+      const firstLabBtn  = document.querySelector('#labs .group-head[aria-expanded="true"]');
+      let scrollTarget = null;
+      if (firstProject && firstLabBtn) {
+        scrollTarget = firstProject.compareDocumentPosition(firstLabBtn) & Node.DOCUMENT_POSITION_FOLLOWING
+          ? firstProject : firstLabBtn;
       } else {
-        document.querySelectorAll('.sk-item').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        activeSkill = skill;
-        applyFilter(skill);
+        scrollTarget = firstProject || firstLabBtn;
       }
-    });
-  });
-
-  function applyFilter(skill) {
-    // Projects section
-    document.querySelectorAll('#projects .proj-item').forEach((item) => {
-      const skills = (item.dataset.skills || '').split(' ');
-      item.classList.toggle('filtered-out', !skills.includes(skill));
-    });
-    // Lab groups
-    document.querySelectorAll('#labs .group-head').forEach((btn) => {
-      const groupSkills = (btn.dataset.groupSkills || '').split(' ');
-      const matches = groupSkills.includes(skill);
-      const bodyId = btn.getAttribute('aria-controls');
-      const body = document.getElementById(bodyId);
-      // dim/show group header
-      btn.style.opacity = matches ? '1' : '0.15';
-      btn.style.pointerEvents = matches ? '' : 'none';
-      if (body) body.style.opacity = matches ? '1' : '0.15';
-      // auto-expand matching, collapse others
-      btn.setAttribute('aria-expanded', matches ? 'true' : 'false');
-      const hint = btn.querySelector('.group-hint');
-      if (hint) hint.textContent = matches ? 'collapse' : 'expand';
-      // dim individual items within matching groups
-      if (matches && body) {
-        body.querySelectorAll('.proj-item, .compact-row').forEach((item) => {
-          const itemSkills = (item.dataset.skills || '').split(' ');
-          item.classList.toggle('filtered-out', !itemSkills.includes(skill));
-        });
+      if (scrollTarget) {
+        setTimeout(() => {
+          const y = scrollTarget.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }, 60);
       }
-    });
-
-    // Scroll to first visible match
-    const firstProject = document.querySelector('#projects .proj-item:not(.filtered-out)');
-    const firstLabBtn  = document.querySelector('#labs .group-head[aria-expanded="true"]');
-    let scrollTarget = null;
-    if (firstProject && firstLabBtn) {
-      scrollTarget = firstProject.compareDocumentPosition(firstLabBtn) & Node.DOCUMENT_POSITION_FOLLOWING
-        ? firstProject : firstLabBtn;
-    } else {
-      scrollTarget = firstProject || firstLabBtn;
     }
-    if (scrollTarget) {
+
+    function clearFilter() {
+      activeSkill = null;
+      document.querySelectorAll('.sk-item').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.proj-item, .compact-row').forEach(el => el.classList.remove('filtered-out'));
+      document.querySelectorAll('#labs .group-head').forEach(btn => {
+        btn.style.opacity = '';
+        btn.style.pointerEvents = '';
+        btn.setAttribute('aria-expanded', 'false');
+        const hint = btn.querySelector('.group-hint');
+        if (hint) hint.textContent = 'expand';
+      });
+      document.querySelectorAll('.group-body').forEach(b => b.style.opacity = '');
+      document.body.classList.remove('filter-active');
+      if (dismissBtn) dismissBtn.classList.remove('visible');
       setTimeout(() => {
-        const y = scrollTarget.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+        const skillsSection = document.getElementById('skills');
+        if (skillsSection) {
+          const y = skillsSection.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
       }, 60);
     }
-  }
 
-  function clearFilter() {
-    document.querySelectorAll('.proj-item, .compact-row').forEach(el => el.classList.remove('filtered-out'));
-    document.querySelectorAll('#labs .group-head').forEach(btn => {
-      btn.style.opacity = '';
-      btn.style.pointerEvents = '';
-      btn.setAttribute('aria-expanded', 'false');
-      const hint = btn.querySelector('.group-hint');
-      if (hint) hint.textContent = 'expand';
+    // Expose for dismiss button onclick
+    window.dismissFilter = clearFilter;
+
+    // Chip click handlers
+    document.querySelectorAll('.sk-item').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        if (activeSkill === chip.dataset.skill) {
+          clearFilter();
+        } else {
+          applyFilter(chip.dataset.skill, chip);
+        }
+      });
     });
-    document.querySelectorAll('.group-body').forEach(b => b.style.opacity = '');
-  }
+  })();
 
   // Back to top
   const backTop = document.getElementById('back-top');
