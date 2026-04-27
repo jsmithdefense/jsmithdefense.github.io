@@ -626,6 +626,23 @@
         });
       }
     });
+
+    // Scroll to first visible match
+    const firstProject = document.querySelector('#projects .proj-item:not(.filtered-out)');
+    const firstLabBtn  = document.querySelector('#labs .group-head[aria-expanded="true"]');
+    let scrollTarget = null;
+    if (firstProject && firstLabBtn) {
+      scrollTarget = firstProject.compareDocumentPosition(firstLabBtn) & Node.DOCUMENT_POSITION_FOLLOWING
+        ? firstProject : firstLabBtn;
+    } else {
+      scrollTarget = firstProject || firstLabBtn;
+    }
+    if (scrollTarget) {
+      setTimeout(() => {
+        const y = scrollTarget.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }, 60);
+    }
   }
 
   function clearFilter() {
