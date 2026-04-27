@@ -30,7 +30,6 @@
   body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; z-index: 0; }
   nav, header, section, footer { position: relative; z-index: 1; }
   a { color: inherit; text-decoration: none; }
-
   /* ── Nav ───────────────────────────────────────────── */
   nav { display: flex; align-items: center; justify-content: space-between; padding: 24px 48px; position: sticky; top: 0; background: rgba(14,18,24,.85); backdrop-filter: blur(8px); z-index: 10; border-bottom: 1px solid var(--rule-2); }
   .nav-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-1); letter-spacing: .02em; }
@@ -40,7 +39,6 @@
   .avail { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-5); display: flex; align-items: center; gap: 6px; }
   .avail-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); animation: pulse 2.5s ease-in-out infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.2} }
-
   /* ── Hero ──────────────────────────────────────────── */
   .hero { padding: 120px 48px 96px; max-width: 880px; margin: 0 auto; }
   .kicker { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); margin-bottom: 32px; letter-spacing: .08em; }
@@ -51,7 +49,12 @@
   .hero-line { display: flex; gap: 24px; padding: 8px 0; border-top: 1px solid var(--rule); font-family: 'JetBrains Mono', monospace; font-size: 11px; align-items: baseline; }
   .hero-line .k { color: var(--text-5); width: 110px; flex-shrink: 0; }
   .hero-line .v { color: var(--text-2); }
-
+  .hero-line .v a { color: var(--text-2); text-decoration: none; transition: color .15s; }
+  .hero-line .v a:hover { color: var(--accent); }
+  .cert-inline { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+  .cert-inline-item { display: inline-flex; align-items: center; gap: 5px; }
+  .cert-inline-item .check { color: var(--teal); }
+  .cert-inline-item .pend { color: var(--text-5); }
   /* ── Sections ──────────────────────────────────────── */
   section { padding: 80px 48px; max-width: 880px; margin: 0 auto; }
   .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 40px; }
@@ -59,7 +62,6 @@
   .sec-label { font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text-1); letter-spacing: .04em; text-transform: uppercase; font-weight: 500; }
   .sec-rule { flex: 1; height: 1px; background: var(--rule); }
   .sec-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-5); }
-
   /* ── Group accordion ──────────────────────────────── */
   .group-head { display: flex; align-items: center; gap: 12px; margin: 28px 0 0; padding: 12px 0; cursor: pointer; user-select: none; background: none; border: none; width: 100%; text-align: left; font-family: inherit; }
   .group-head:first-child { margin-top: 0; }
@@ -71,7 +73,6 @@
   .group-count { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-5); min-width: 16px; text-align: right; }
   .group-hint { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-5); opacity: .7; transition: opacity .3s; }
   .group-head[aria-expanded="true"] .group-hint { opacity: 0; }
-
   .group-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s cubic-bezier(.4,0,.2,1); }
   .group-body > .group-inner { overflow: hidden; min-height: 0; }
   .group-head[aria-expanded="true"] + .group-body { grid-template-rows: 1fr; }
@@ -89,10 +90,9 @@
   .group-head[aria-expanded="true"] + .group-body .proj-item:nth-child(n+5),
   .group-head[aria-expanded="true"] + .group-body .compact-row:nth-child(n+5) { transition-delay: .24s; }
   .group-blurb { font-size: 12px; color: var(--text-5); padding: 14px 0 6px; max-width: 620px; }
-
   /* ── Projects ──────────────────────────────────────── */
   .proj-list { display: flex; flex-direction: column; }
-  .proj-item { border-top: 1px solid var(--rule); display: block; }
+  .proj-item { border-top: 1px solid var(--rule); display: block; transition: opacity .3s ease; }
   .proj-inner { padding: 24px 0; transition: padding-left .25s ease; }
   .proj-item:hover .proj-inner { padding-left: 12px; }
   .proj-grid { display: grid; grid-template-columns: 60px 1fr 140px; gap: 20px; align-items: start; }
@@ -107,28 +107,27 @@
   .status.invest { color: var(--purple); border: 1px solid rgba(167,139,250,.22); }
   .proj-tags { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
   .ptag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-5); }
-
   /* Compact list (STIG remediations) */
   .compact-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
-  .compact-row { display: flex; gap: 10px; padding: 6px 0; border-top: 1px solid var(--rule); font-family: 'JetBrains Mono', monospace; font-size: 11px; transition: padding-left .15s; }
+  .compact-row { display: flex; gap: 10px; padding: 6px 0; border-top: 1px solid var(--rule); font-family: 'JetBrains Mono', monospace; font-size: 11px; transition: padding-left .15s, opacity .3s ease; }
   .compact-row:hover { padding-left: 6px; color: var(--text-1); }
   .compact-row .id { color: var(--accent); opacity: .55; flex-shrink: 0; min-width: 90px; }
   .compact-row .label { color: var(--text-3); }
   .compact-row:hover .label { color: var(--text-1); }
-
   /* ── Skills ────────────────────────────────────────── */
-  .skills-two { display: grid; grid-template-columns: 1fr 280px; gap: 48px; }
-  .col-head { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-5); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
-  .sk-list { display: flex; flex-wrap: wrap; gap: 6px 14px; }
-  .sk-item { font-size: 13px; color: var(--text-3); }
-  .cert-list { display: flex; flex-direction: column; gap: 10px; }
-  .cert-row { display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; text-decoration: none; transition: opacity .15s; }
-  a.cert-row:hover { opacity: .75; }
-  .cert-row .check { color: var(--teal); }
-  .cert-row .pend { color: var(--text-5); }
-  .cert-name { color: var(--text-2); flex: 1; }
-  .cert-stat { color: var(--text-5); font-size: 10px; }
-
+  .sk-hint { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-5); margin-bottom: 16px; }
+  .sk-list { display: flex; flex-wrap: wrap; gap: 6px 8px; }
+  .sk-item {
+    font-size: 13px; color: var(--text-3);
+    padding: 4px 10px; border-radius: 4px;
+    border: 1px solid transparent;
+    cursor: pointer; user-select: none;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .sk-item:hover { color: var(--text-1); border-color: var(--rule); }
+  .sk-item.active { color: var(--accent); border-color: rgba(74,143,212,.35); background: rgba(74,143,212,.08); }
+  /* ── Filter ─────────────────────────────────────────── */
+  .filtered-out { opacity: 0.15 !important; pointer-events: none; }
   /* ── Contact ───────────────────────────────────────── */
   #contact { padding-bottom: 80px; }
   .contact-h { font-family: 'Inter', sans-serif; font-size: 36px; font-weight: 300; color: var(--text-1); letter-spacing: -.025em; margin-bottom: 8px; }
@@ -137,13 +136,10 @@
   .clink { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-2); padding: 6px 0; display: inline-flex; gap: 8px; transition: color .15s; }
   .clink:hover { color: var(--text-1); }
   .clink .arr { color: var(--accent); opacity: .7; }
-
   footer { padding: 24px 48px; max-width: 880px; margin: 0 auto; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-5); }
-
   /* Reveal */
   [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease; }
   [data-reveal].in { opacity: 1; transform: translateY(0); }
-
   @media (max-width: 720px) {
     nav { padding: 18px 24px; }
     .nav-mid { display: none; }
@@ -153,13 +149,11 @@
     .proj-grid { grid-template-columns: 40px 1fr; gap: 12px; }
     .proj-grid .proj-right { display: none; }
     .compact-list { grid-template-columns: 1fr; }
-    .skills-two { grid-template-columns: 1fr; gap: 32px; }
     footer { padding: 24px; flex-direction: column; gap: 8px; }
   }
   .type-cursor { color: var(--accent); animation: blink .7s step-end infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
   .nav-mid a.active { color: var(--text-1); }
-
   /* Floating contact */
   #contact-float { position: fixed; bottom: 80px; right: 32px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; opacity: 0; pointer-events: none; transition: opacity .3s ease; z-index: 100; }
   #contact-float.visible { opacity: 1; pointer-events: all; }
@@ -170,12 +164,10 @@
   .cf-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-5); background: none; border: 1px solid var(--rule); padding: 5px 10px; border-radius: 4px; display: flex; align-items: center; gap: 6px; transition: color .15s, border-color .15s; text-decoration: none; cursor: none; white-space: nowrap; }
   .cf-link:hover { color: var(--text-1); border-color: var(--accent); }
   .cf-link .cf-arr { color: var(--accent); opacity: .7; font-size: 10px; }
-
   /* Back to top */
   #back-top { position: fixed; bottom: 32px; right: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-5); background: none; border: 1px solid var(--rule); padding: 6px 12px; border-radius: 4px; cursor: none; opacity: 0; pointer-events: none; transition: opacity .3s ease, color .15s, border-color .15s; z-index: 100; }
   #back-top.visible { opacity: 1; pointer-events: all; }
   #back-top:hover { color: var(--text-1); border-color: var(--accent); }
-
   /* Custom cursor */
   @media (pointer: fine) {
     * { cursor: none !important; }
@@ -208,18 +200,16 @@
   <button id="cf-toggle">contact ↗</button>
 </div>
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ top</button>
-
 <nav>
   <span class="nav-name">jsmithdefense</span>
   <div class="nav-mid">
+    <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#labs">Labs</a>
-    <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
   </div>
   <div class="avail"><span class="avail-dot"></span>Open to Work</div>
 </nav>
-
 <header class="hero" data-reveal>
   <div class="kicker">/ Portfolio</div>
   <h1>
@@ -228,21 +218,61 @@
   </h1>
   <blockquote class="hero-quote">"Defense isn't just blocking activity — it's understanding why it was possible."</blockquote>
   <p>Cybersecurity practitioner. Self-taught. Building tools because the problems are interesting.</p>
-  <div class="hero-line"><span class="k">focus</span><span class="v">incident response · IAM · AI integration</span></div>
   <div class="hero-line"><span class="k">stack</span><span class="v">Azure · Splunk · Tenable · Python · PowerShell · KQL</span></div>
-  <div class="hero-line"><span class="k">looking for</span><span class="v">junior cloud security or SOC roles · fully remote</span></div>
+  <div class="hero-line">
+    <span class="k">certs</span>
+    <span class="v">
+      <span class="cert-inline">
+        <span class="cert-inline-item"><a href="https://www.credly.com/badges/b83c0d88-9261-4ef7-b3eb-3a7784dfb65e/public_url" target="_blank" rel="noopener"><span class="check">✓</span> CompTIA Security+</a></span>
+        <span class="cert-inline-item"><a href="https://learn.microsoft.com/en-us/users/juliansmith-7086/credentials/940928f455a6957d" target="_blank" rel="noopener"><span class="check">✓</span> AZ-900</a></span>
+        <span class="cert-inline-item"><a href="https://www.credly.com/badges/befd2db3-750e-45ac-ae9e-16337b3d3ca4/public_url" target="_blank" rel="noopener"><span class="check">✓</span> Splunk CCDA</a></span>
+        <span class="cert-inline-item"><span class="pend">○</span> SC-200 <span style="color:var(--text-5);font-size:10px;">in progress</span></span>
+      </span>
+    </span>
+  </div>
+  <div class="hero-line"><span class="k">looking for</span><span class="v">early-career cloud security or SOC roles · remote or relocation</span></div>
 </header>
 
-<section id="projects" data-reveal>
+<!-- 01 SKILLS -->
+<section id="skills" data-reveal>
   <div class="sec-head">
     <span class="sec-num">01</span>
+    <span class="sec-label">Skills</span>
+    <span class="sec-rule"></span>
+    <span class="sec-count">click a skill to filter related work</span>
+  </div>
+  <div class="sk-list">
+    <span class="sk-item" data-skill="ir">Incident Response</span>
+    <span class="sk-item" data-skill="iam">IAM</span>
+    <span class="sk-item" data-skill="ai-integration">AI Integration</span>
+    <span class="sk-item" data-skill="azure">Microsoft Azure</span>
+    <span class="sk-item" data-skill="sentinel">Microsoft Sentinel</span>
+    <span class="sk-item" data-skill="defender">Microsoft Defender XDR</span>
+    <span class="sk-item" data-skill="kql">KQL</span>
+    <span class="sk-item" data-skill="splunk">Splunk</span>
+    <span class="sk-item" data-skill="tenable">Tenable</span>
+    <span class="sk-item" data-skill="wazuh">Wazuh</span>
+    <span class="sk-item" data-skill="python">Python</span>
+    <span class="sk-item" data-skill="powershell">PowerShell</span>
+    <span class="sk-item" data-skill="azure-sdk">Azure SDK</span>
+    <span class="sk-item" data-skill="graph">MS Graph API</span>
+    <span class="sk-item" data-skill="mitre">MITRE ATT&amp;CK</span>
+    <span class="sk-item" data-skill="vulnmgmt">Vulnerability Management</span>
+    <span class="sk-item" data-skill="stig">STIG Remediation</span>
+    <span class="sk-item" data-skill="hunting">Threat Hunting</span>
+    <span class="sk-item" data-skill="cti">CTI</span>
+  </div>
+</section>
+
+<!-- 02 PROJECTS -->
+<section id="projects" data-reveal>
+  <div class="sec-head">
+    <span class="sec-num">02</span>
     <span class="sec-label">Projects</span>
     <span class="sec-rule"></span>
   </div>
-
   <div class="proj-list">
-
-    <a class="proj-item" href="https://github.com/jsmithdefense/Azure-RBAC-Risk-Intelligence" target="_blank" rel="noopener">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Azure-RBAC-Risk-Intelligence" target="_blank" rel="noopener" data-skills="azure python azure-sdk graph iam ai-integration">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">./</span>
@@ -262,20 +292,19 @@
         </div>
       </div>
     </a>
-
   </div>
 </section>
 
+<!-- 03 LABS -->
 <section id="labs" data-reveal>
   <div class="sec-head">
-    <span class="sec-num">02</span>
+    <span class="sec-num">03</span>
     <span class="sec-label">Labs &amp; Investigations</span>
     <span class="sec-rule"></span>
     <span class="sec-count">click category to expand</span>
   </div>
-
   <!-- ── AZURE ── -->
-  <button class="group-head" aria-expanded="false" aria-controls="grp-azure">
+  <button class="group-head" aria-expanded="false" aria-controls="grp-azure" data-group-skills="azure kql sentinel cti ir iam">
     <span class="group-chev">▸</span>
     <span class="group-name">Azure</span>
     <span class="group-rule"></span>
@@ -283,8 +312,7 @@
     <span class="group-count">2</span>
   </button>
   <div class="group-body" id="grp-azure"><div class="group-inner"><div class="proj-list">
-
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Azure/azure-credential-exposure.md" target="_blank" rel="noopener">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Azure/azure-credential-exposure.md" target="_blank" rel="noopener" data-skills="azure kql cti sentinel ir iam">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">A.01</span>
@@ -303,8 +331,7 @@
         </div>
       </div>
     </a>
-
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Azure/azure-vm-exposure-and-access-hardening.md" target="_blank" rel="noopener">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Azure/azure-vm-exposure-and-access-hardening.md" target="_blank" rel="noopener" data-skills="azure kql sentinel ir">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">A.02</span>
@@ -323,11 +350,9 @@
         </div>
       </div>
     </a>
-
   </div></div></div>
-
   <!-- ── DEFENDER XDR ── -->
-  <button class="group-head" aria-expanded="false" aria-controls="grp-defender">
+  <button class="group-head" aria-expanded="false" aria-controls="grp-defender" data-group-skills="defender azure powershell mitre ir">
     <span class="group-chev">▸</span>
     <span class="group-name">Defender XDR</span>
     <span class="group-rule"></span>
@@ -335,8 +360,7 @@
     <span class="group-count">3</span>
   </button>
   <div class="group-body" id="grp-defender"><div class="group-inner"><div class="proj-list">
-
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Defender-XDR/mdxdr-internet-exposure-initial-access.md" target="_blank" rel="noopener">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Defender-XDR/mdxdr-internet-exposure-initial-access.md" target="_blank" rel="noopener" data-skills="defender azure ir">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">D.01</span>
@@ -354,8 +378,7 @@
         </div>
       </div>
     </a>
-
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Defender-XDR/mdxdr-insider-threat-investigation.md" target="_blank" rel="noopener">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Defender-XDR/mdxdr-insider-threat-investigation.md" target="_blank" rel="noopener" data-skills="defender powershell mitre ir">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">D.02</span>
@@ -374,8 +397,7 @@
         </div>
       </div>
     </a>
-
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Defender-XDR/tor-browser-final-project" target="_blank" rel="noopener">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Defender-XDR/tor-browser-final-project" target="_blank" rel="noopener" data-skills="defender mitre ir">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">D.03</span>
@@ -393,11 +415,9 @@
         </div>
       </div>
     </a>
-
   </div></div></div>
-
   <!-- ── SPLUNK ── -->
-  <button class="group-head" aria-expanded="false" aria-controls="grp-splunk">
+  <button class="group-head" aria-expanded="false" aria-controls="grp-splunk" data-group-skills="splunk cti hunting powershell ir">
     <span class="group-chev">▸</span>
     <span class="group-name">Splunk</span>
     <span class="group-rule"></span>
@@ -405,8 +425,7 @@
     <span class="group-count">2</span>
   </button>
   <div class="group-body" id="grp-splunk"><div class="group-inner"><div class="proj-list">
-
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Splunk/splunk-phishing-lateral-movement.md" target="_blank" rel="noopener">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Splunk/splunk-phishing-lateral-movement.md" target="_blank" rel="noopener" data-skills="splunk powershell mitre ir">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">S.01</span>
@@ -425,8 +444,7 @@
         </div>
       </div>
     </a>
-
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Splunk/splunk-intel-driven-threat-hunt.md" target="_blank" rel="noopener">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Splunk/splunk-intel-driven-threat-hunt.md" target="_blank" rel="noopener" data-skills="splunk cti hunting ir">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">S.02</span>
@@ -445,11 +463,9 @@
         </div>
       </div>
     </a>
-
   </div></div></div>
-
   <!-- ── TENABLE / STIG ── -->
-  <button class="group-head" aria-expanded="false" aria-controls="grp-tenable">
+  <button class="group-head" aria-expanded="false" aria-controls="grp-tenable" data-group-skills="tenable stig powershell vulnmgmt">
     <span class="group-chev">▸</span>
     <span class="group-name">Tenable · STIG Remediation</span>
     <span class="group-rule"></span>
@@ -459,21 +475,20 @@
   <div class="group-body" id="grp-tenable"><div class="group-inner">
     <div class="group-blurb">Windows 11 STIG remediation writeups — each documents the finding, scan output before/after, and the PowerShell or GPO remediation applied. <a href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/README.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">README ↗</a></div>
     <div class="compact-list">
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AU-000050_Proccess_Create_Auditing" target="_blank" rel="noopener"><span class="id">WN11-AU-000050</span><span class="label">Enable Process Creation Auditing</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AU-000560_Enable_Logon_Auditing" target="_blank" rel="noopener"><span class="id">WN11-AU-000560</span><span class="label">Enable Logon Auditing</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000110_Disable_HTTP_Printitng" target="_blank" rel="noopener"><span class="id">WN11-CC-000110</span><span class="label">Disable HTTP Printing</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000185_Disable_Autorun_Commands" target="_blank" rel="noopener"><span class="id">WN11-CC-000185</span><span class="label">Disable Autorun Commands</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000005_Disable_Lock_Screen_Camera" target="_blank" rel="noopener"><span class="id">WN11-CC-000005</span><span class="label">Disable Camera From Lock Screen</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000315_Disable_Automatic_Privelage_Elevation" target="_blank" rel="noopener"><span class="id">WN11-CC-000315</span><span class="label">Disable Automatic Elevation</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AC-000005_Lockout_Duration" target="_blank" rel="noopener"><span class="id">WN11-AC-000005</span><span class="label">Configure Account Lockout Duration</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AC-000010_Limit_Logon_Attempts" target="_blank" rel="noopener"><span class="id">WN11-AC-000010</span><span class="label">Limit Logon Attempts</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-00-000090_Password_Expiration" target="_blank" rel="noopener"><span class="id">WN11-00-000090</span><span class="label">Enable Password Expiration</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-00-000395_Disable_PortProxy" target="_blank" rel="noopener"><span class="id">WN11-00-000395</span><span class="label">Disable PortProxy</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AU-000050_Proccess_Create_Auditing" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-AU-000050</span><span class="label">Enable Process Creation Auditing</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AU-000560_Enable_Logon_Auditing" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-AU-000560</span><span class="label">Enable Logon Auditing</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000110_Disable_HTTP_Printitng" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-CC-000110</span><span class="label">Disable HTTP Printing</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000185_Disable_Autorun_Commands" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-CC-000185</span><span class="label">Disable Autorun Commands</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000005_Disable_Lock_Screen_Camera" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-CC-000005</span><span class="label">Disable Camera From Lock Screen</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000315_Disable_Automatic_Privelage_Elevation" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-CC-000315</span><span class="label">Disable Automatic Elevation</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AC-000005_Lockout_Duration" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-AC-000005</span><span class="label">Configure Account Lockout Duration</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AC-000010_Limit_Logon_Attempts" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-AC-000010</span><span class="label">Limit Logon Attempts</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-00-000090_Password_Expiration" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-00-000090</span><span class="label">Enable Password Expiration</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-00-000395_Disable_PortProxy" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-00-000395</span><span class="label">Disable PortProxy</span></a>
     </div>
   </div></div>
-
   <!-- ── OTHER ── -->
-  <button class="group-head" aria-expanded="false" aria-controls="grp-other">
+  <button class="group-head" aria-expanded="false" aria-controls="grp-other" data-group-skills="mitre wazuh hunting ir">
     <span class="group-chev">▸</span>
     <span class="group-name">Other</span>
     <span class="group-rule"></span>
@@ -481,8 +496,7 @@
     <span class="group-count">2</span>
   </button>
   <div class="group-body" id="grp-other"><div class="group-inner"><div class="proj-list">
-
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/OTHER/sentinel-the-broker-threat-hunt-ctf.md" target="_blank" rel="noopener">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/OTHER/sentinel-the-broker-threat-hunt-ctf.md" target="_blank" rel="noopener" data-skills="mitre hunting ir">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">O.01</span>
@@ -501,8 +515,7 @@
         </div>
       </div>
     </a>
-
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/OTHER/Wazuh-Endpoint-Monitoring-Alert-Tuning.md" target="_blank" rel="noopener">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/OTHER/Wazuh-Endpoint-Monitoring-Alert-Tuning.md" target="_blank" rel="noopener" data-skills="wazuh vulnmgmt">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">O.02</span>
@@ -521,51 +534,10 @@
         </div>
       </div>
     </a>
-
   </div></div></div>
-
 </section>
 
-<section id="skills" data-reveal>
-  <div class="sec-head">
-    <span class="sec-num">03</span>
-    <span class="sec-label">Skills &amp; Certifications</span>
-    <span class="sec-rule"></span>
-  </div>
-  <div class="skills-two">
-    <div>
-      <div class="sk-list">
-        <span class="sk-item">Microsoft Azure</span>
-        <span class="sk-item">Entra ID</span>
-        <span class="sk-item">Microsoft Sentinel</span>
-        <span class="sk-item">Microsoft Defender XDR</span>
-        <span class="sk-item">KQL</span>
-        <span class="sk-item">Splunk</span>
-        <span class="sk-item">Tenable</span>
-        <span class="sk-item">Wazuh</span>
-        <span class="sk-item">Python</span>
-        <span class="sk-item">PowerShell</span>
-        <span class="sk-item">Azure SDK</span>
-        <span class="sk-item">MS Graph API</span>
-        <span class="sk-item">MITRE ATT&amp;CK</span>
-        <span class="sk-item">Vulnerability Management</span>
-        <span class="sk-item">STIG Remediation</span>
-        <span class="sk-item">Threat Hunting</span>
-        <span class="sk-item">CTI</span>
-      </div>
-    </div>
-    <div>
-      <div class="col-head">Certifications</div>
-      <div class="cert-list">
-        <a class="cert-row" href="https://www.credly.com/badges/b83c0d88-9261-4ef7-b3eb-3a7784dfb65e/public_url" target="_blank" rel="noopener"><span class="check">✓</span><span class="cert-name">CompTIA Security+</span><span class="cert-stat">certified</span></a>
-        <a class="cert-row" href="https://learn.microsoft.com/en-us/users/juliansmith-7086/credentials/940928f455a6957d?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank" rel="noopener"><span class="check">✓</span><span class="cert-name">Microsoft AZ-900</span><span class="cert-stat">certified</span></a>
-        <a class="cert-row" href="https://www.credly.com/badges/befd2db3-750e-45ac-ae9e-16337b3d3ca4/public_url" target="_blank" rel="noopener"><span class="check">✓</span><span class="cert-name">Splunk CCDA</span><span class="cert-stat">certified</span></a>
-        <div class="cert-row"><span class="pend">○</span><span class="cert-name">Microsoft SC-200</span><span class="cert-stat">in progress</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- 04 CONTACT -->
 <section id="contact" data-reveal>
   <div class="sec-head">
     <span class="sec-num">04</span>
@@ -573,18 +545,16 @@
     <span class="sec-rule"></span>
   </div>
   <h2 class="contact-h">Let's talk.</h2>
-  <p class="contact-p">Open to junior cloud security and SOC roles — fully remote.</p>
+  <p class="contact-p">Open to junior cloud security and SOC roles — remote or open to relocation.</p>
   <div class="contact-links">
     <a class="clink" id="email-copy" href="mailto:jsmithsec.connect@gmail.com"><span id="email-label">jsmithsec.connect@gmail.com</span> <span class="arr">↗</span></a>
     <a class="clink" href="https://www.linkedin.com/in/jsmithdefense/" target="_blank" rel="noopener">linkedin.com/in/jsmithdefense <span class="arr">↗</span></a>
   </div>
 </section>
-
 <footer>
   <span>jsmithdefense</span>
   <span id="last-updated">© MMXXVI · all rights reserved</span>
 </footer>
-
 <script>
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
@@ -605,6 +575,67 @@
       if (hint) hint.textContent = open ? 'expand' : 'collapse';
     });
   });
+
+  // Skill filter
+  let activeSkill = null;
+  document.querySelectorAll('.sk-item').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const skill = chip.dataset.skill;
+      if (activeSkill === skill) {
+        activeSkill = null;
+        chip.classList.remove('active');
+        clearFilter();
+      } else {
+        document.querySelectorAll('.sk-item').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        activeSkill = skill;
+        applyFilter(skill);
+      }
+    });
+  });
+
+  function applyFilter(skill) {
+    // Projects section
+    document.querySelectorAll('#projects .proj-item').forEach((item) => {
+      const skills = (item.dataset.skills || '').split(' ');
+      item.classList.toggle('filtered-out', !skills.includes(skill));
+    });
+    // Lab groups
+    document.querySelectorAll('#labs .group-head').forEach((btn) => {
+      const groupSkills = (btn.dataset.groupSkills || '').split(' ');
+      const matches = groupSkills.includes(skill);
+      const bodyId = btn.getAttribute('aria-controls');
+      const body = document.getElementById(bodyId);
+      // dim/show group header
+      btn.style.opacity = matches ? '1' : '0.15';
+      btn.style.pointerEvents = matches ? '' : 'none';
+      if (body) body.style.opacity = matches ? '1' : '0.15';
+      // auto-expand matching, collapse others
+      btn.setAttribute('aria-expanded', matches ? 'true' : 'false');
+      const hint = btn.querySelector('.group-hint');
+      if (hint) hint.textContent = matches ? 'collapse' : 'expand';
+      // dim individual items within matching groups
+      if (matches && body) {
+        body.querySelectorAll('.proj-item, .compact-row').forEach((item) => {
+          const itemSkills = (item.dataset.skills || '').split(' ');
+          item.classList.toggle('filtered-out', !itemSkills.includes(skill));
+        });
+      }
+    });
+  }
+
+  function clearFilter() {
+    document.querySelectorAll('.proj-item, .compact-row').forEach(el => el.classList.remove('filtered-out'));
+    document.querySelectorAll('#labs .group-head').forEach(btn => {
+      btn.style.opacity = '';
+      btn.style.pointerEvents = '';
+      btn.setAttribute('aria-expanded', 'false');
+      const hint = btn.querySelector('.group-hint');
+      if (hint) hint.textContent = 'expand';
+    });
+    document.querySelectorAll('.group-body').forEach(b => b.style.opacity = '');
+  }
+
   // Back to top
   const backTop = document.getElementById('back-top');
   const contactFloat = document.getElementById('contact-float');
@@ -671,7 +702,7 @@
     entries.forEach((e) => {
       if (e.isIntersecting) {
         navLinks.forEach((a) => a.classList.remove('active'));
-        const id = e.target.id || 'projects';
+        const id = e.target.id || 'skills';
         const match = document.querySelector(`.nav-mid a[href="#${id}"]`);
         if (match) match.classList.add('active');
       }
@@ -694,12 +725,11 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top  = e.clientY + 'px';
     });
-    document.querySelectorAll('a, button').forEach((el) => {
+    document.querySelectorAll('a, button, .sk-item').forEach((el) => {
       el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
   }
 </script>
-
 </body>
 </html>
