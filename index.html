@@ -395,12 +395,12 @@
     <span class="sec-count">click category to expand</span>
   </div>
   <!-- ── AZURE ── -->
-  <button class="group-head" aria-expanded="false" aria-controls="grp-azure" data-group-skills="azure kql sentinel cti ir iam">
+  <button class="group-head" aria-expanded="false" aria-controls="grp-azure" data-group-skills="azure kql sentinel cti ir iam hunting">
     <span class="group-chev">▸</span>
     <span class="group-name">Azure</span>
     <span class="group-rule"></span>
     <span class="group-hint">expand</span>
-    <span class="group-count">2</span>
+    <span class="group-count">3</span>
   </button>
   <div class="group-body" id="grp-azure"><div class="group-inner"><div class="proj-list">
     <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Azure/azure-credential-exposure.md" target="_blank" rel="noopener" data-skills="azure kql cti sentinel ir iam">
@@ -441,8 +441,26 @@
         </div>
       </div>
     </a>
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Azure/sentinel-the-broker-threat-hunt-ctf.md" target="_blank" rel="noopener" data-skills="azure sentinel ir hunting mitre">
+      <div class="proj-inner">
+        <div class="proj-grid">
+          <span class="proj-idx">A.03</span>
+          <div>
+            <div class="proj-name">Multi-Host Hands-On-Keyboard Intrusion CTF</div>
+            <div class="proj-desc">Traced credential dumping, lateral movement, persistence techniques, and payroll data staging across enterprise endpoints.</div>
+          </div>
+          <div class="proj-right">
+            <span class="status invest">CTF</span>
+            <div class="proj-tags">
+              <span class="ptag">Forensics</span>
+              <span class="ptag">Lateral</span>
+              <span class="ptag">Persistence</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
   </div></div></div>
-  <!-- ── DEFENDER XDR ── -->
   <button class="group-head" aria-expanded="false" aria-controls="grp-defender" data-group-skills="defender azure powershell mitre ir">
     <span class="group-chev">▸</span>
     <span class="group-name">Defender XDR</span>
@@ -578,38 +596,38 @@
       <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-00-000395_Disable_PortProxy" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-00-000395</span><span class="label">Disable PortProxy</span></a>
     </div>
   </div></div>
-  <!-- ── OTHER ── -->
-  <button class="group-head" aria-expanded="false" aria-controls="grp-other" data-group-skills="mitre wazuh hunting ir">
+  <!-- ── HOMELAB ── -->
+  <button class="group-head" aria-expanded="false" aria-controls="grp-homelab" data-group-skills="wazuh ad adcs proxmox tailscale powershell linux">
     <span class="group-chev">▸</span>
-    <span class="group-name">Other</span>
+    <span class="group-name">Homelab</span>
     <span class="group-rule"></span>
     <span class="group-hint">expand</span>
     <span class="group-count">2</span>
   </button>
-  <div class="group-body" id="grp-other"><div class="group-inner"><div class="proj-list">
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/OTHER/sentinel-the-broker-threat-hunt-ctf.md" target="_blank" rel="noopener" data-skills="mitre hunting ir">
+  <div class="group-body" id="grp-homelab"><div class="group-inner"><div class="proj-list">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Homelab/ConDef-Homelab.md" target="_blank" rel="noopener" data-skills="ad adcs proxmox powershell dns gpo">
       <div class="proj-inner">
         <div class="proj-grid">
-          <span class="proj-idx">O.01</span>
+          <span class="proj-idx">H.01</span>
           <div>
-            <div class="proj-name">Multi-Host Hands-On-Keyboard Intrusion CTF</div>
-            <div class="proj-desc">Traced credential dumping, lateral movement, persistence techniques, and payroll data staging across enterprise endpoints.</div>
+            <div class="proj-name">ConDef Homelab</div>
+            <div class="proj-desc">Built a purple-team practice lab on Proxmox VE covering Windows Active Directory, ADCS, endpoint telemetry, and detection engineering. Promoted a Domain Controller, configured ADCS Certificate Services, domain-joined Windows 11 and Linux clients, and deployed Wazuh EDR across the environment with Tailscale mesh VPN.</div>
           </div>
           <div class="proj-right">
-            <span class="status invest">CTF</span>
+            <span class="status live">homelab</span>
             <div class="proj-tags">
-              <span class="ptag">Forensics</span>
-              <span class="ptag">Lateral</span>
-              <span class="ptag">Persistence</span>
+              <span class="ptag">Proxmox</span>
+              <span class="ptag">AD DS</span>
+              <span class="ptag">ADCS</span>
             </div>
           </div>
         </div>
       </div>
     </a>
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/OTHER/Wazuh-Endpoint-Monitoring-Alert-Tuning.md" target="_blank" rel="noopener" data-skills="wazuh vulnmgmt">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Homelab/Wazuh-Endpoint-Monitoring-Alert-Tuning.md" target="_blank" rel="noopener" data-skills="wazuh tailscale edr">
       <div class="proj-inner">
         <div class="proj-grid">
-          <span class="proj-idx">O.02</span>
+          <span class="proj-idx">H.02</span>
           <div>
             <div class="proj-name">Wazuh EDR Homelab</div>
             <div class="proj-desc">Deployed Wazuh as a multi-OS EDR solution in my homelab. All traffic is routed and encrypted via a Tailscale mesh network to prevent public internet exposure.</div>
