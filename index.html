@@ -798,11 +798,13 @@
       }, 60);
     }
 
-    // Auto-clear: once every filtered result is off screen, drop the filter.
-    // Arms only after the filter's own scroll settles.
+    // Auto-clear: after the filter's own scroll settles, a small scroll
+    // in either direction (AUTO_CLEAR_PX) drops the filter.
+    const AUTO_CLEAR_PX = 150;
     let autoClearArmed = false;
     let armTimer = null;
     let armPending = false;
+    let anchorY = 0;
     let ticking = false;
 
     function armAutoClear() {
@@ -813,30 +815,8 @@
     }
     function finishArming() {
       armPending = false;
+      anchorY = window.scrollY;
       autoClearArmed = true;
-    }
-
-    function resultsOffScreen() {
-      const els = [
-        ...document.querySelectorAll('#projects > .proj-list .proj-item:not(.filtered-out)'),
-        ...document.querySelectorAll('#projects .group-head[aria-expanded="true"]'),
-      ];
-      els.forEach((btn) => {
-        if (btn.classList.contains('group-head')) {
-          const body = document.getElementById(btn.getAttribute('aria-controls'));
-          if (body) els.push(body);
-        }
-      });
-      if (!els.length) return false;
-      let top = Infinity, bottom = -Infinity;
-      els.forEach((el) => {
-        const r = el.getBoundingClientRect();
-        if (r.height === 0) return;
-        top = Math.min(top, r.top);
-        bottom = Math.max(bottom, r.bottom);
-      });
-      if (top === Infinity) return false;
-      return bottom < 0 || top > window.innerHeight;
     }
 
     window.addEventListener('scroll', () => {
@@ -850,7 +830,9 @@
       ticking = true;
       requestAnimationFrame(() => {
         ticking = false;
-        if (activeSkill && autoClearArmed && resultsOffScreen()) clearFilter({ silent: true });
+        if (activeSkill && autoClearArmed && Math.abs(window.scrollY - anchorY) > AUTO_CLEAR_PX) {
+          clearFilter({ silent: true });
+        }
       });
     }, { passive: true });
 
