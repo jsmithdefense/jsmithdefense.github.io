@@ -311,19 +311,13 @@
     <span class="sk-item" data-skill="azure">Microsoft Azure</span>
     <span class="sk-item" data-skill="sentinel">Microsoft Sentinel</span>
     <span class="sk-item" data-skill="defender">Microsoft Defender XDR</span>
-    <span class="sk-item" data-skill="edr">EDR</span>
     <span class="sk-item" data-skill="kql">KQL</span>
     <span class="sk-item" data-skill="splunk">Splunk</span>
-    <span class="sk-item" data-skill="tenable">Tenable</span>
     <span class="sk-item" data-skill="wazuh">Wazuh</span>
-    <span class="sk-item" data-skill="proxmox">Proxmox</span>
     <span class="sk-item" data-skill="python">Python</span>
     <span class="sk-item" data-skill="powershell">PowerShell</span>
-    <span class="sk-item" data-skill="azure-sdk">Azure SDK</span>
-    <span class="sk-item" data-skill="graph">MS Graph API</span>
     <span class="sk-item" data-skill="mitre">MITRE ATT&amp;CK</span>
     <span class="sk-item" data-skill="vulnmgmt">Vulnerability Management</span>
-    <span class="sk-item" data-skill="stig">STIG Remediation</span>
     <span class="sk-item" data-skill="hunting">Threat Hunting</span>
     <span class="sk-item" data-skill="cti">CTI</span>
   </div>
@@ -337,7 +331,7 @@
     <span class="sec-rule"></span>
   </div>
   <div class="proj-list">
-    <a class="proj-item" href="https://github.com/jsmithdefense/Azure-RBAC-Risk-Intelligence" target="_blank" rel="noopener" data-skills="azure python azure-sdk graph iam ai-integration">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Azure-RBAC-Risk-Intelligence" target="_blank" rel="noopener" data-skills="azure python iam ai-integration">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">./</span>
@@ -376,7 +370,7 @@
         </div>
       </div>
     </a>
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Homelab/ConDef-Homelab.md" target="_blank" rel="noopener" data-skills="ad adcs proxmox powershell">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Homelab/ConDef-Homelab.md" target="_blank" rel="noopener" data-skills="ad adcs powershell">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">./</span>
@@ -397,7 +391,7 @@
     </a>
   </div>
   <!-- ── AZURE ── -->
-  <button class="group-head" aria-expanded="false" aria-controls="grp-azure" data-group-skills="azure kql sentinel cti ir iam python azure-sdk graph ai-integration">
+  <button class="group-head" aria-expanded="false" aria-controls="grp-azure" data-group-skills="azure kql sentinel cti ir iam python ai-integration">
     <span class="group-chev">▸</span>
     <span class="group-name">Azure</span>
     <span class="group-rule"></span>
@@ -443,7 +437,7 @@
         </div>
       </div>
     </a>
-    <a class="proj-item" href="https://github.com/jsmithdefense/Azure-RBAC-Risk-Intelligence" target="_blank" rel="noopener" data-skills="azure python azure-sdk graph iam ai-integration">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Azure-RBAC-Risk-Intelligence" target="_blank" rel="noopener" data-skills="azure python iam ai-integration">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">A.03</span>
@@ -596,7 +590,7 @@
     </a>
   </div></div></div>
   <!-- ── TENABLE / STIG ── -->
-  <button class="group-head" aria-expanded="false" aria-controls="grp-tenable" data-group-skills="tenable stig powershell vulnmgmt">
+  <button class="group-head" aria-expanded="false" aria-controls="grp-tenable" data-group-skills="powershell vulnmgmt">
     <span class="group-chev">▸</span>
     <span class="group-name">Tenable · STIG Remediation</span>
     <span class="group-rule"></span>
@@ -606,20 +600,20 @@
   <div class="group-body" id="grp-tenable"><div class="group-inner">
     <div class="group-blurb">Windows 11 STIG remediation writeups — each documents the finding, scan output before/after, and the PowerShell or GPO remediation applied. <a href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/README.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">README ↗</a></div>
     <div class="compact-list">
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AU-000050_Proccess_Create_Auditing" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-AU-000050</span><span class="label">Enable Process Creation Auditing</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AU-000560_Enable_Logon_Auditing" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-AU-000560</span><span class="label">Enable Logon Auditing</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000110_Disable_HTTP_Printitng" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-CC-000110</span><span class="label">Disable HTTP Printing</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000185_Disable_Autorun_Commands" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-CC-000185</span><span class="label">Disable Autorun Commands</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000005_Disable_Lock_Screen_Camera" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-CC-000005</span><span class="label">Disable Camera From Lock Screen</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000315_Disable_Automatic_Privelage_Elevation" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-CC-000315</span><span class="label">Disable Automatic Elevation</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AC-000005_Lockout_Duration" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-AC-000005</span><span class="label">Configure Account Lockout Duration</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AC-000010_Limit_Logon_Attempts" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-AC-000010</span><span class="label">Limit Logon Attempts</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-00-000090_Password_Expiration" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-00-000090</span><span class="label">Enable Password Expiration</span></a>
-      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-00-000395_Disable_PortProxy" target="_blank" rel="noopener" data-skills="tenable stig powershell vulnmgmt"><span class="id">WN11-00-000395</span><span class="label">Disable PortProxy</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AU-000050_Proccess_Create_Auditing" target="_blank" rel="noopener" data-skills="powershell vulnmgmt"><span class="id">WN11-AU-000050</span><span class="label">Enable Process Creation Auditing</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AU-000560_Enable_Logon_Auditing" target="_blank" rel="noopener" data-skills="powershell vulnmgmt"><span class="id">WN11-AU-000560</span><span class="label">Enable Logon Auditing</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000110_Disable_HTTP_Printitng" target="_blank" rel="noopener" data-skills="powershell vulnmgmt"><span class="id">WN11-CC-000110</span><span class="label">Disable HTTP Printing</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000185_Disable_Autorun_Commands" target="_blank" rel="noopener" data-skills="powershell vulnmgmt"><span class="id">WN11-CC-000185</span><span class="label">Disable Autorun Commands</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000005_Disable_Lock_Screen_Camera" target="_blank" rel="noopener" data-skills="powershell vulnmgmt"><span class="id">WN11-CC-000005</span><span class="label">Disable Camera From Lock Screen</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-CC-000315_Disable_Automatic_Privelage_Elevation" target="_blank" rel="noopener" data-skills="powershell vulnmgmt"><span class="id">WN11-CC-000315</span><span class="label">Disable Automatic Elevation</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AC-000005_Lockout_Duration" target="_blank" rel="noopener" data-skills="powershell vulnmgmt"><span class="id">WN11-AC-000005</span><span class="label">Configure Account Lockout Duration</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-AC-000010_Limit_Logon_Attempts" target="_blank" rel="noopener" data-skills="powershell vulnmgmt"><span class="id">WN11-AC-000010</span><span class="label">Limit Logon Attempts</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-00-000090_Password_Expiration" target="_blank" rel="noopener" data-skills="powershell vulnmgmt"><span class="id">WN11-00-000090</span><span class="label">Enable Password Expiration</span></a>
+      <a class="compact-row" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Tenable/STIG-Implementations/WN11-00-000395_Disable_PortProxy" target="_blank" rel="noopener" data-skills="powershell vulnmgmt"><span class="id">WN11-00-000395</span><span class="label">Disable PortProxy</span></a>
     </div>
   </div></div>
   <!-- ── HOMELAB ── -->
-  <button class="group-head" aria-expanded="false" aria-controls="grp-homelab" data-group-skills="wazuh ad adcs proxmox powershell edr">
+  <button class="group-head" aria-expanded="false" aria-controls="grp-homelab" data-group-skills="wazuh ad adcs powershell">
     <span class="group-chev">▸</span>
     <span class="group-name">Homelab</span>
     <span class="group-rule"></span>
@@ -627,7 +621,7 @@
     <span class="group-count">2</span>
   </button>
   <div class="group-body" id="grp-homelab"><div class="group-inner"><div class="proj-list">
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Homelab/ConDef-Homelab.md" target="_blank" rel="noopener" data-skills="ad adcs proxmox powershell">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Homelab/ConDef-Homelab.md" target="_blank" rel="noopener" data-skills="ad adcs powershell">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">H.01</span>
@@ -646,7 +640,7 @@
         </div>
       </div>
     </a>
-    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Homelab/Wazuh-Endpoint-Monitoring-Alert-Tuning.md" target="_blank" rel="noopener" data-skills="wazuh edr">
+    <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Homelab/Wazuh-Endpoint-Monitoring-Alert-Tuning.md" target="_blank" rel="noopener" data-skills="wazuh">
       <div class="proj-inner">
         <div class="proj-grid">
           <span class="proj-idx">H.02</span>
