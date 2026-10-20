@@ -766,10 +766,12 @@
           window.scrollTo({ top: y, behavior: 'smooth' });
         }, 60);
       }
+      armAutoClear();
     }
 
-    function clearFilter() {
+    function clearFilter(opts) {
       activeSkill = null;
+      autoClearArmed = false;
       document.querySelectorAll('.sk-item').forEach(c => c.classList.remove('active'));
       document.querySelectorAll('.proj-item, .compact-row').forEach(el => el.classList.remove('filtered-out'));
       document.querySelectorAll('#projects .group-head').forEach(btn => {
@@ -782,6 +784,7 @@
       document.querySelectorAll('.group-body').forEach(b => b.style.opacity = '');
       document.body.classList.remove('filter-active');
       if (dismissBtn) dismissBtn.classList.remove('visible');
+      if (opts && opts.silent) return;
       setTimeout(() => {
         const skillsSection = document.getElementById('skills');
         if (skillsSection) {
@@ -790,6 +793,62 @@
         }
       }, 60);
     }
+
+    // Auto-clear: once every filtered result is off screen, drop the filter.
+    // Arms only after the filter's own scroll settles.
+    let autoClearArmed = false;
+    let armTimer = null;
+    let armPending = false;
+    let ticking = false;
+
+    function armAutoClear() {
+      autoClearArmed = false;
+      armPending = true;
+      clearTimeout(armTimer);
+      armTimer = setTimeout(finishArming, 400);
+    }
+    function finishArming() {
+      armPending = false;
+      autoClearArmed = true;
+    }
+
+    function resultsOffScreen() {
+      const els = [
+        ...document.querySelectorAll('#projects > .proj-list .proj-item:not(.filtered-out)'),
+        ...document.querySelectorAll('#projects .group-head[aria-expanded="true"]'),
+      ];
+      els.forEach((btn) => {
+        if (btn.classList.contains('group-head')) {
+          const body = document.getElementById(btn.getAttribute('aria-controls'));
+          if (body) els.push(body);
+        }
+      });
+      if (!els.length) return false;
+      let top = Infinity, bottom = -Infinity;
+      els.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.height === 0) return;
+        top = Math.min(top, r.top);
+        bottom = Math.max(bottom, r.bottom);
+      });
+      if (top === Infinity) return false;
+      return bottom < 0 || top > window.innerHeight;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!activeSkill) return;
+      if (armPending) {
+        clearTimeout(armTimer);
+        armTimer = setTimeout(finishArming, 250);
+        return;
+      }
+      if (!autoClearArmed || ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        if (activeSkill && autoClearArmed && resultsOffScreen()) clearFilter({ silent: true });
+      });
+    }, { passive: true });
 
     // Expose for dismiss button onclick
     window.dismissFilter = clearFilter;
