@@ -36,29 +36,6 @@
   .nav-mid { display: flex; gap: 32px; }
   .nav-mid a { font-size: 13px; color: var(--text-5); transition: color .15s; }
   .nav-mid a:hover { color: var(--text-1); }
-  .avail { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-5); display: flex; align-items: center; gap: 6px; position: relative; cursor: default; }
-  .avail:hover { color: var(--text-2); }
-  .avail-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); animation: pulse 2.5s ease-in-out infinite; flex-shrink: 0; }
-  .avail-detail {
-    position: absolute; top: calc(100% + 10px); right: 0;
-    font-family: 'JetBrains Mono', monospace; font-size: 10px;
-    color: var(--accent); background: rgba(14,18,24,.95);
-    border: 1px solid rgba(74,143,212,.2);
-    border-radius: 6px; padding: 8px 14px;
-    white-space: nowrap; pointer-events: none;
-    opacity: 0; transform: translateY(-4px);
-    transition: opacity .2s ease, transform .2s ease;
-    z-index: 50;
-  }
-  .avail-detail::before {
-    content: ''; position: absolute; top: -5px; right: 14px;
-    width: 8px; height: 8px; background: rgba(14,18,24,.95);
-    border-left: 1px solid rgba(74,143,212,.2);
-    border-top: 1px solid rgba(74,143,212,.2);
-    transform: rotate(45deg);
-  }
-  .avail:hover .avail-detail { opacity: 1; transform: translateY(0); }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.2} }
   /* ── Hero ──────────────────────────────────────────── */
   .hero { padding: 120px 48px 96px; max-width: 880px; margin: 0 auto; }
   .kicker { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); margin-bottom: 32px; letter-spacing: .08em; }
@@ -285,16 +262,12 @@
     <a href="#labs">Labs</a>
     <a href="#contact">Contact</a>
   </div>
-  <div class="avail">
-    <span class="avail-dot"></span>Open to Work
-    <div class="avail-detail">early-career · cloud security / SOC · remote or relocation</div>
-  </div>
 </nav>
 <header class="hero" data-reveal>
   <div class="kicker">/ Portfolio</div>
   <h1>
     <span id="typed-name"></span><span class="type-cursor">|</span><br />
-    <span class="soft">SecOps · Cloud Security</span>
+    <span class="soft">Cloud Security · Identity · SecOps</span>
   </h1>
   <blockquote class="hero-quote">"Defense isn't just blocking activity — it's understanding why it was possible."</blockquote>
   <p></p>
@@ -654,7 +627,7 @@
     <span class="sec-rule"></span>
   </div>
   <h2 class="contact-h">Let's talk.</h2>
-  <p class="contact-p">Open to junior cloud security and SOC roles — remote or open to relocation.</p>
+  <p class="contact-p">Open to junior cloud security, identity, and SOC roles</p>
   <div class="contact-links">
     <a class="clink" id="email-copy" href="mailto:jsmithsec.connect@gmail.com"><span id="email-label">jsmithsec.connect@gmail.com</span> <span class="arr">↗</span></a>
     <a class="clink" href="https://www.linkedin.com/in/jsmithdefense/" target="_blank" rel="noopener">linkedin.com/in/jsmithdefense <span class="arr">↗</span></a>
