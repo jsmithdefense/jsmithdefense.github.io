@@ -800,7 +800,7 @@
 
     // Auto-clear: after the filter's own scroll settles, a small scroll
     // in either direction (AUTO_CLEAR_PX) drops the filter.
-    const AUTO_CLEAR_PX = 150;
+    const AUTO_CLEAR_PX = 60;
     let autoClearArmed = false;
     let armTimer = null;
     let armPending = false;
@@ -811,7 +811,7 @@
       autoClearArmed = false;
       armPending = true;
       clearTimeout(armTimer);
-      armTimer = setTimeout(finishArming, 400);
+      armTimer = setTimeout(finishArming, 200);
     }
     function finishArming() {
       armPending = false;
@@ -823,7 +823,7 @@
       if (!activeSkill) return;
       if (armPending) {
         clearTimeout(armTimer);
-        armTimer = setTimeout(finishArming, 250);
+        armTimer = setTimeout(finishArming, 120);
         return;
       }
       if (!autoClearArmed || ticking) return;
