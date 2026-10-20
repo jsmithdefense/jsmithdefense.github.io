@@ -259,7 +259,6 @@
   <div class="nav-mid">
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
-    <a href="#labs">Labs</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
@@ -334,6 +333,7 @@
     <span class="sec-num">02</span>
     <span class="sec-label">Projects</span>
     <span class="sec-rule"></span>
+    <span class="sec-count">click category to expand</span>
   </div>
   <div class="proj-list">
     <a class="proj-item" href="https://github.com/jsmithdefense/Azure-RBAC-Risk-Intelligence" target="_blank" rel="noopener" data-skills="azure python azure-sdk graph iam ai-integration">
@@ -357,23 +357,13 @@
       </div>
     </a>
   </div>
-</section>
-
-<!-- 03 LABS -->
-<section id="labs" data-reveal>
-  <div class="sec-head">
-    <span class="sec-num">03</span>
-    <span class="sec-label">Labs &amp; Investigations</span>
-    <span class="sec-rule"></span>
-    <span class="sec-count">click category to expand</span>
-  </div>
   <!-- ── AZURE ── -->
-  <button class="group-head" aria-expanded="false" aria-controls="grp-azure" data-group-skills="azure kql sentinel cti ir iam">
+  <button class="group-head" aria-expanded="false" aria-controls="grp-azure" data-group-skills="azure kql sentinel cti ir iam python azure-sdk graph ai-integration">
     <span class="group-chev">▸</span>
     <span class="group-name">Azure</span>
     <span class="group-rule"></span>
     <span class="group-hint">expand</span>
-    <span class="group-count">2</span>
+    <span class="group-count">3</span>
   </button>
   <div class="group-body" id="grp-azure"><div class="group-inner"><div class="proj-list">
     <a class="proj-item" href="https://github.com/jsmithdefense/Security-Projects/blob/main/Azure/azure-credential-exposure.md" target="_blank" rel="noopener" data-skills="azure kql cti sentinel ir iam">
@@ -409,6 +399,26 @@
               <span class="ptag">KQL</span>
               <span class="ptag">Sentinel</span>
               <span class="ptag">Tuning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a class="proj-item" href="https://github.com/jsmithdefense/Azure-RBAC-Risk-Intelligence" target="_blank" rel="noopener" data-skills="azure python azure-sdk graph iam ai-integration">
+      <div class="proj-inner">
+        <div class="proj-grid">
+          <span class="proj-idx">A.03</span>
+          <div>
+            <div class="proj-name">Azure RBAC Risk Intelligence</div>
+            <div class="proj-desc">A tool that enumerates all role assignments across a tenant, ranks subscriptions and principals by cumulative risk score, and generates AI remediation playbooks which can be executed manually or automatically via Azure SDK.</div>
+          </div>
+          <div class="proj-right">
+            <span class="status live">tool · v1</span>
+            <div class="proj-tags">
+              <span class="ptag">Python</span>
+              <span class="ptag">Azure SDK</span>
+              <span class="ptag">RBAC</span>
+              <span class="ptag">AI</span>
             </div>
           </div>
         </div>
@@ -619,10 +629,10 @@
   </div></div></div>
 </section>
 
-<!-- 04 CONTACT -->
+<!-- 03 CONTACT -->
 <section id="contact" data-reveal>
   <div class="sec-head">
-    <span class="sec-num">04</span>
+    <span class="sec-num">03</span>
     <span class="sec-label">Contact</span>
     <span class="sec-rule"></span>
   </div>
@@ -671,13 +681,13 @@
       activeSkill = skill;
 
       // Projects
-      document.querySelectorAll('#projects .proj-item').forEach((item) => {
+      document.querySelectorAll('#projects > .proj-list .proj-item').forEach((item) => {
         const skills = (item.dataset.skills || '').split(' ');
         item.classList.toggle('filtered-out', !skills.includes(skill));
       });
 
-      // Lab groups
-      document.querySelectorAll('#labs .group-head').forEach((btn) => {
+      // Category groups
+      document.querySelectorAll('#projects .group-head').forEach((btn) => {
         const groupSkills = (btn.dataset.groupSkills || '').split(' ');
         const matches = groupSkills.includes(skill);
         const bodyId = btn.getAttribute('aria-controls');
@@ -706,8 +716,8 @@
       }
 
       // Scroll to first match
-      const firstProject = document.querySelector('#projects .proj-item:not(.filtered-out)');
-      const firstLabBtn  = document.querySelector('#labs .group-head[aria-expanded="true"]');
+      const firstProject = document.querySelector('#projects > .proj-list .proj-item:not(.filtered-out)');
+      const firstLabBtn  = document.querySelector('#projects .group-head[aria-expanded="true"]');
       let scrollTarget = null;
       if (firstProject && firstLabBtn) {
         scrollTarget = firstProject.compareDocumentPosition(firstLabBtn) & Node.DOCUMENT_POSITION_FOLLOWING
@@ -727,7 +737,7 @@
       activeSkill = null;
       document.querySelectorAll('.sk-item').forEach(c => c.classList.remove('active'));
       document.querySelectorAll('.proj-item, .compact-row').forEach(el => el.classList.remove('filtered-out'));
-      document.querySelectorAll('#labs .group-head').forEach(btn => {
+      document.querySelectorAll('#projects .group-head').forEach(btn => {
         btn.style.opacity = '';
         btn.style.pointerEvents = '';
         btn.setAttribute('aria-expanded', 'false');
